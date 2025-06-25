@@ -1,6 +1,7 @@
 import RestaurantCard from "./RestaurantCard";
 import React, { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
+import {Link} from "react-router-dom"
 const Body = () => {
   const [ListOfRestaurants, setListOfRestaurants] = useState([]);
   const [SearchText,setSearchText] =useState("")
@@ -43,7 +44,7 @@ const Body = () => {
         
         <input type ="text" className="search-box" value={SearchText} onChange={(e)=>{setSearchText(e.target.value)}}/>
         <button onClick={()=>{
-       const filteredRestaurant= ListOfRestaurants.filter((res)=> res.info.name.toLowerCase().includes(SearchText.toLowerCase()));
+       const filteredRestaurant= ListOfRestaurants.filter((restaurant)=> restaurant.info.name.toLowerCase().includes(SearchText.toLowerCase()));
        // console.log(filteredRestaurant)
        setListOfRestaurants(filteredRestaurant)
         }}>Search</button>
@@ -53,18 +54,27 @@ const Body = () => {
         </button>
   
 
-      <div className="res-container">
-        {ListOfRestaurants.length === 0 ? (
-          <p>No restaurants to display</p>
-        ) : (
-          ListOfRestaurants.map((restaurant, index) => (
-            <RestaurantCard
-              key={restaurant?.id || restaurant?.info?.id || index}
-              resdata={restaurant?.info || restaurant} // Support both possible formats
-            />
-          ))
-        )}
-      </div>
+        <div className="res-container">
+  {ListOfRestaurants.length === 0 ? (
+    <p>No restaurants to display</p>
+  ) : (
+    ListOfRestaurants.map((restaurant, index) => {
+      const id = restaurant?.id || restaurant?.info?.id || index;
+      const resdata = restaurant?.info || restaurant;
+
+      return (
+        <Link
+          to={`/restaurants/${id}`}
+          key={id}
+          style={{ textDecoration: "none", color: "inherit" , width: "200px",
+           display :"flex", flexWrap:"wrap"}}
+        >
+          <RestaurantCard resdata={resdata} />
+        </Link>
+      );
+    })
+  )}
+</div>
     </div>
   );
 };
