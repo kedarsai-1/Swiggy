@@ -1,7 +1,7 @@
 import React from "react";
 const User=({name})=>{
     return(
-        <div className="user-card">
+        <div className="">
             <h2>{name}</h2>
             <h3>Location: Guntur</h3>
             <h4>Contact: saikedar2003@gmail.com  </h4>
@@ -9,4 +9,4 @@ const User=({name})=>{
         </div>
     )
 }
-export default User;
+export default User; 

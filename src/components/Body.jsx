@@ -2,10 +2,11 @@ import RestaurantCard from "./RestaurantCard";
 import React, { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import {Link} from "react-router-dom"
+import useOnlineStatus from "../utils/useOnlineStatus";
 const Body = () => {
   const [ListOfRestaurants, setListOfRestaurants] = useState([]);
   const [SearchText,setSearchText] =useState("")
-
+ 
   useEffect(() => {
     fetchdata();
   }, []);
@@ -26,6 +27,10 @@ const Body = () => {
   
     setListOfRestaurants(restaurants);
   };
+  const onlineStatus = useOnlineStatus();
+  if (onlineStatus ===false){
+    return <h1>you are offline please check your internet Connection</h1>
+  }
   //conditional Rendering
   if (ListOfRestaurants.length === 0){
     return <Shimmer/>
@@ -40,21 +45,28 @@ const Body = () => {
 
   return (
     <div className="body">
-      <div className="filter">
+      <div className='filter'>
         
-        <input type ="text" className="search-box" value={SearchText} onChange={(e)=>{setSearchText(e.target.value)}}/>
-        <button onClick={()=>{
+        
+        <input 
+        type ="text" 
+        className='m-2 p-1 border-1' 
+        value={SearchText}  
+        onChange={(e)=>{setSearchText(e.target.value)}}/>
+        <button className="px-4 py-2 bg bg-green-100 m-4 rounded-lg hover:bg-green-600 shadow-lg cursor-pointer"
+        onClick={()=>{
        const filteredRestaurant= ListOfRestaurants.filter((restaurant)=> restaurant.info.name.toLowerCase().includes(SearchText.toLowerCase()));
        // console.log(filteredRestaurant)
        setListOfRestaurants(filteredRestaurant)
         }}>Search</button>
-        </div>
-        <button className="filter-btn" onClick={handleTopRatedFilter}>
+       
+        <button className="px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 shadow-lg cursor-pointer" onClick={handleTopRatedFilter}>
           Top Rated Restaurants
         </button>
+        </div>
   
 
-        <div className="res-container">
+        <div className="flex flex-wrap ">
   {ListOfRestaurants.length === 0 ? (
     <p>No restaurants to display</p>
   ) : (
@@ -66,7 +78,7 @@ const Body = () => {
         <Link
           to={`/restaurants/${id}`}
           key={id}
-          style={{ textDecoration: "none", color: "inherit" , width: "200px",
+          style={{ textDecoration: "none", color: "inherit" , width: "250px",
            display :"flex", flexWrap:"wrap"}}
         >
           <RestaurantCard resdata={resdata} />
