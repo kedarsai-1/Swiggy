@@ -6,6 +6,7 @@ import useOnlineStatus from "../utils/useOnlineStatus";
 const Body = () => {
   const [ListOfRestaurants, setListOfRestaurants] = useState([]);
   const [SearchText,setSearchText] =useState("")
+
  
   useEffect(() => {
     fetchdata();
@@ -16,6 +17,7 @@ const Body = () => {
       "https://www.swiggy.com/dapi/restaurants/list/v5?lat=16.3066525&lng=80.4365402&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
     );
     const json = await res.json();
+    console.log(json)
   
     const restaurantCard = json?.data?.cards?.find(
       (card) =>
@@ -82,7 +84,7 @@ const Body = () => {
            display :"flex", flexWrap:"wrap"}}
         >
           <RestaurantCard resdata={resdata} />
-        </Link>
+        </Link> 
       );
     })
   )}
