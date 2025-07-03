@@ -30,8 +30,8 @@ console.log(categories);
       <h3 >{costForTwoMessage}</h3>
       <ul>
     {categories.map((category,index)=>(
-<RestaurantCategory key={category?.card?.card?.title}data={category?.card.card}  showItems = {index  === showIndex ? true:false}
-  setshowIndex={()=>{setshowIndex(index)}}
+<RestaurantCategory key={category?.card?.card?.title}data={category?.card.card}  showItems = {index  === showIndex}
+  setshowIndex={()=>setshowIndex(showIndex ===  index ? null : index)}
  />
 
     ))}
