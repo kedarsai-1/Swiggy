@@ -20,7 +20,9 @@ return(
     <div className="w-6/12 m-auto">
     <ItemList items = {cartItems}/>
     <button className="p-2 m-2 bg-black text-white shadow-lg rounded-lg cursor-pointer" onClick={handleClearCart}>clear Cart</button>
+
     </div>
+    
     </div>
 )
 }

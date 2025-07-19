@@ -52,7 +52,6 @@ const Body = () => {
     <div className="body">
       <div className='filter'>
         
-        
         <input 
         type ="text" 
         className='m-2 p-1 border-1' 

@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { CARD_URL } from "../utils/constants";
-import { addItem } from "../utils/cartSlice";
+import { addItem,removeItem } from "../utils/cartSlice";
 const ItemList =({items})=>{
   console.log(items)
   const disptach = useDispatch();
@@ -8,8 +8,10 @@ const ItemList =({items})=>{
     const handleAddItem =(item)=>{
       // dispatch action
       disptach(addItem(item));
-
     }
+      const handleDeleteItem = (item)=>
+        disptach(removeItem(item));
+    
 return( 
     <div>
         {items.map(item=>
@@ -23,10 +25,18 @@ return(
                 </div>
                 <div className="relative">
       <img src={CARD_URL + item.card.info.imageId} className="w-40 object-cover" />
-      <button className="p-2 bg-white shadow-lg absolute bottom-1 right-1 text-sm rounded hover:cursor-pointer" onClick={()=>handleAddItem(item)}
+      <div className="flex absolute top-2/2 right-1 ">
+      <button className="p-2 bg-white shadow-lg  text-sm rounded hover:cursor"  onClick={()=>handleAddItem(item)}
       >
         Add +
       </button>
+      <button className="p-2 bg-white shadow-lg  text-sm rounded  hover:cursor-pointer" onClick={()=>handleDeleteItem(item)}
+      >
+        Del -
+      </button>
+      </div>
+     
+
     </div>
               </div>
               </div>
